@@ -46,7 +46,7 @@ $(document).ready(function(){
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-4">
-						<h2>Mis <b>Películas</b> Favoritas</h2>
+						<h2>Mis <b>Películas</b> Favoritas by Javier</h2>
 					</div>
 					<div class="col-sm-8">
 						<a href="#addFilmModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Añadir Película</span></a>
