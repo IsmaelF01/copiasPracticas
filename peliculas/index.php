@@ -109,8 +109,11 @@ $(document).ready(function(){
 						<td><?php echo $pelicula['sinopsis']; ?></td>
                         <td><img class="cartel" src="<?php echo $pelicula['cartel']; ?>"></td>
                         <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<!--
+							<a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							-->
+							<a href="controlador.php?delete=<?php echo $pelicula['id_pelicula'];?>"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
 <?php
@@ -144,27 +147,27 @@ $(document).ready(function(){
 					<div class="modal-body">					
 						<div class="form-group">
 							<label>Título</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name="titulo" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Género</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name="genero" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Director</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name="director" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Año</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name="fecha" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Sinopsis</label>
-							<textarea class="form-control" required></textarea>
+							<textarea class="form-control" name="sinopsis" required></textarea>
 						</div>
 						<div class="form-group">
 							<label>Cartel</label>
-							<input type="file" class="form-control" required>
+							<input type="text" name="cartel" class="form-control" required>
 						</div>				
 					</div>
 					<div class="modal-footer">
@@ -175,49 +178,73 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+
+	<?php
+		//Mostramos las peliculas desde la BD
+		$conexion = conectar("2daw");
+
+		//La consulta
+		$consulta = "SELECT * FROM peliculas ORDER BY titulo";
+		//Para mostrar correctamente la codificación
+		$conexion->query("SET NAMES utf8");
+		$resultado = $conexion->query($consulta);
+
+		//Recorremos los resultados
+		while($pelicula = $resultado->fetch_array()) {
+?>
+
 	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
+	<div id="editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form method='POST' action='controlador.php'>
 					<div class="modal-header">						
 						<h4 class="modal-title">Edit Película</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
+					<input type="hidden" name="id_pelicula" value="<?php echo $pelicula['id_pelicula'];?>">
 					<div class="modal-body">					
 						<div class="form-group">
 							<label>Título</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name='titulo' class="form-control" value="<?php echo $pelicula['titulo'];?>" required>
 						</div>
 						<div class="form-group">
 							<label>Género</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name='genero' class="form-control" value="<?php echo $pelicula['genero'];?>" required>
 						</div>
 						<div class="form-group">
 							<label>Director</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name='director' class="form-control" value="<?php echo $pelicula['director'];?>"required>
 						</div>
 						<div class="form-group">
 							<label>Año</label>
-							<input type="text" class="form-control" required>
+							<input type="text" name='fecha' class="form-control" value="<?php echo $pelicula['fecha'];?>"required>
 						</div>
 						<div class="form-group">
 							<label>Sinopsis</label>
-							<textarea class="form-control" required></textarea>
+							<textarea name='sinopsis' class="form-control" required><?php echo $pelicula['sinopsis'];?></textarea>
 						</div>
 						<div class="form-group">
 							<label>Cartel</label>
-							<input type="file" class="form-control" required>
+							<input type="text" name='cartel' class="form-control" value="<?php echo $pelicula['cartel'];?>"required>
 						</div>					
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
+						<input type="submit" name='edit' class="btn btn-info" value="Save">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+<?php
+		}
+
+		$conexion->close();
+?>
+
+
+
 	<!-- Delete Modal HTML -->
 	<div id="deleteFilmModal" class="modal fade">
 		<div class="modal-dialog">
