@@ -46,7 +46,7 @@ $(document).ready(function(){
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-4">
-						<h2>Mis <b>Películas</b> Favoritas by Javier</h2>
+						<h2>Mis <b>Películas</b> Favoritas</h2>
 					</div>
 					<div class="col-sm-8">
 						<a href="#addFilmModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Añadir Película</span></a>
@@ -79,6 +79,22 @@ $(document).ready(function(){
                     </tr>
                 </thead>
                 <tbody>
+<?php
+		//Mostramos las peliculas desde la BD
+		require('conexion.php');
+		$conexion = conectar("2daw");
+
+		//La consulta
+		$consulta = "SELECT * FROM peliculas ORDER BY titulo";
+		//Para mostrar correctamente la codificación
+		$conexion->query("SET NAMES utf8");
+		$resultado = $conexion->query($consulta);
+
+		//Recorremos los resultados
+		while($pelicula = $resultado->fetch_array()) {
+?>
+		
+
                     <tr>
 						<td>
 							<span class="custom-checkbox">
@@ -86,89 +102,20 @@ $(document).ready(function(){
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td>John Wick: Capítulo 3 - Parabellum</td>
-                        <td>Acción</td>
-						<td>Chad Stahelski</td>
-						<td>2019</td>
-						<td>John Wick (Keanu Reeves) regresa a la acción, solo que esta vez con una recompensa de 14 millones de dólares sobre su cabeza y con un ejército de mercenarios intentando darle caza</td>
-                        <td><img class="cartel" src="https://pics.filmaffinity.com/john_wick_chapter_3_parabellum-953528381-mmed.jpg"></td>
+                        <td><?php echo $pelicula['titulo']; ?></td>
+                        <td><?php echo $pelicula['genero']; ?></td>
+						<td><?php echo $pelicula['director']; ?></td>
+						<td><?php echo $pelicula['fecha']; ?></td>
+						<td><?php echo $pelicula['sinopsis']; ?></td>
+                        <td><img class="cartel" src="<?php echo $pelicula['cartel']; ?>"></td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="2">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td>John Wick: Capítulo 3 - Parabellum</td>
-                        <td>Acción</td>
-						<td>Chad Stahelski</td>
-						<td>2019</td>
-						<td>John Wick (Keanu Reeves) regresa a la acción, solo que esta vez con una recompensa de 14 millones de dólares sobre su cabeza y con un ejército de mercenarios intentando darle caza</td>
-                        <td><img class="cartel" src="https://pics.filmaffinity.com/john_wick_chapter_3_parabellum-953528381-mmed.jpg"></td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="3">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td>John Wick: Capítulo 3 - Parabellum</td>
-                        <td>Acción</td>
-						<td>Chad Stahelski</td>
-						<td>2019</td>
-						<td>John Wick (Keanu Reeves) regresa a la acción, solo que esta vez con una recompensa de 14 millones de dólares sobre su cabeza y con un ejército de mercenarios intentando darle caza</td>
-                        <td><img class="cartel" src="https://pics.filmaffinity.com/john_wick_chapter_3_parabellum-953528381-mmed.jpg"></td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="4">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td>John Wick: Capítulo 3 - Parabellum</td>
-                        <td>Acción</td>
-						<td>Chad Stahelski</td>
-						<td>2019</td>
-						<td>John Wick (Keanu Reeves) regresa a la acción, solo que esta vez con una recompensa de 14 millones de dólares sobre su cabeza y con un ejército de mercenarios intentando darle caza</td>
-                        <td><img class="cartel" src="https://pics.filmaffinity.com/john_wick_chapter_3_parabellum-953528381-mmed.jpg"></td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="5">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td>John Wick: Capítulo 3 - Parabellum</td>
-                        <td>Acción</td>
-						<td>Chad Stahelski</td>
-						<td>2019</td>
-						<td>John Wick (Keanu Reeves) regresa a la acción, solo que esta vez con una recompensa de 14 millones de dólares sobre su cabeza y con un ejército de mercenarios intentando darle caza</td>
-                        <td><img class="cartel" src="https://pics.filmaffinity.com/john_wick_chapter_3_parabellum-953528381-mmed.jpg"></td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>                                                                                
+<?php
+		}
+?>
                 </tbody>
             </table>
 			<div class="clearfix">
