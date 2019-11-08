@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,11 +56,28 @@ $(document).ready(function(){
 						<a href="#deleteFilmModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Eliminar</span></a>	
 					</div>
                 </div>
-            </div>
+			</div>
+<?php
+		//FILTRO
+		if (isset($_GET['buscar'])) {
+			$busqueda = $_GET['filtro'];
+			$_SESSION['filtro'] = $busqueda;
+		} else {
+			if (isset($_SESSION['filtro'])) {
+				$busqueda = $_SESSION['filtro'];	
+			} else {
+				$busqueda = "";
+			}
+		}
+		$like = "WHERE titulo LIKE '%$busqueda%' OR director LIKE '%$busqueda%'";
+?>
             <div class="row">
-				<form class="form-inline pull-right">
+				<form class="form-inline pull-right" method="GET" action="index.php">
 					  <label class="">Filtro:</label>
-					  <input type="text" class="form-control" id="inlineFormInputName" placeholder="">
+					  <input type="text" class="form-control" name="filtro" id="inlineFormInputName" value="<?php echo $busqueda;?>">					  
+					  <button type="submit" id="buscar" name="buscar" class="btn btn-info">
+      					<span class="glyphicon glyphicon-search"></span>
+    				  </button>
                 </form>
             </div>
             <table class="table table-striped table-hover">
@@ -84,14 +104,35 @@ $(document).ready(function(){
 		require('conexion.php');
 		$conexion = conectar("2daw");
 
+		//PAGINADOR
+		//Constante para el número de resultados a mostrar
+		define('PELIS_POR_PAGINA',4);
+		//Obtener el número total de registros en
+		$resultado = $conexion->query("SELECT COUNT(*) as total FROM peliculas ".$like);
+		$fila = $resultado->fetch_assoc();
+		$total_peliculas = $fila['total'];
+		//El número de páginas será la división entre el total de registros
+		//y los que muestro en cada página
+		$num_paginas = ceil($total_peliculas / PELIS_POR_PAGINA);
+		//Leemos la página seleccionada
+		if(isset($_GET['pag'])) {
+			$pagina = $_GET['pag'];
+		} else {
+			$pagina = 0;
+		}
+		$inicio = $pagina * PELIS_POR_PAGINA;
+
 		//La consulta
-		$consulta = "SELECT * FROM peliculas ORDER BY titulo";
+		$consulta = "SELECT * FROM peliculas ".$like." ORDER BY titulo LIMIT $inicio,".PELIS_POR_PAGINA;
+
 		//Para mostrar correctamente la codificación
 		$conexion->query("SET NAMES utf8");
 		$resultado = $conexion->query($consulta);
 
 		//Recorremos los resultados
+		$num_resultados=0;
 		while($pelicula = $resultado->fetch_array()) {
+			$num_resultados++;
 ?>
 		
 
@@ -120,19 +161,33 @@ $(document).ready(function(){
 		}
 ?>
                 </tbody>
-            </table>
+			</table>
+
+			<!-- PAGINADOR -->
 			<div class="clearfix">
-                <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                <div class="hint-text">Mostrando <b><?php echo $inicio;?> a <?php echo ($num_resultados+$inicio);?></b> de <b><?php echo $total_peliculas;?></b> entradas</div>
                 <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Anterior</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
+
+<?php					
+		if ($pagina < 1) {
+			echo "<li class='page-item disabled'><a href='#'>Anterior</a></li>";
+		} else {
+			echo "<li class='page-item'><a href='index.php?pag=".($pagina-1)."'>Anterior</a></li>";
+		}
+
+		for($i=0;$i<$num_paginas;$i++){			
+			echo "<li class='page-item'><a href='index.php?pag=$i' class='page-link'>".($i+1)."</a></li>";
+		}
+
+		if ($pagina == ($num_paginas-1)) {
+			echo "<li class='page-item disabled'><a href='#'>Siguiente</a></li>";
+		} else {
+			echo "<li class='page-item'><a href='index.php?pag=".($pagina+1)."'>Siguiente</a></li>";
+		}		
+?>					
                 </ul>
-            </div>
+			</div>
+			
         </div>
     </div>
 	<!-- Edit Modal HTML -->
@@ -184,8 +239,6 @@ $(document).ready(function(){
 		$conexion = conectar("2daw");
 
 		//La consulta
-		$consulta = "SELECT * FROM peliculas ORDER BY titulo";
-		//Para mostrar correctamente la codificación
 		$conexion->query("SET NAMES utf8");
 		$resultado = $conexion->query($consulta);
 
