@@ -84,8 +84,26 @@ $(document).ready(function(){
 		require('conexion.php');
 		$conexion = conectar("2daw");
 
+		//PAGINADOR
+		//Constante para el número de resultados a mostrar
+		define('PELIS_POR_PAGINA',4);
+		//Obtener el número total de registros en
+		$resultado = $conexion->query("SELECT COUNT(*) as total FROM peliculas");
+		$fila = $resultado->fetch_assoc();
+		$total_peliculas = $fila['total'];
+		//El número de páginas será la división entre el total de registros
+		//y los que muestro en cada página
+		$num_paginas = ceil($total_peliculas / PELIS_POR_PAGINA);
+		//Leemos la página seleccionada
+		if(isset($_GET['pag'])) {
+			$pagina = $_GET['pag'];
+		} else {
+			$pagina = 0;
+		}
+		$inicio = $pagina * PELIS_POR_PAGINA;
+
 		//La consulta
-		$consulta = "SELECT * FROM peliculas ORDER BY titulo";
+		$consulta = "SELECT * FROM peliculas ORDER BY titulo LIMIT $inicio,".PELIS_POR_PAGINA;
 		//Para mostrar correctamente la codificación
 		$conexion->query("SET NAMES utf8");
 		$resultado = $conexion->query($consulta);
@@ -120,19 +138,22 @@ $(document).ready(function(){
 		}
 ?>
                 </tbody>
-            </table>
+			</table>
+
+			<!-- PAGINADOR -->
 			<div class="clearfix">
-                <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                <div class="hint-text">Mostrando <b>5 a 10</b> de <b><?php echo $total_peliculas;?></b> entradas</div>
                 <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Anterior</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
+					<li class="page-item disabled"><a href="#">Anterior</a></li>
+<?php					
+		for($i=0;$i<$num_paginas;$i++){			
+			echo "<li class='page-item'><a href='index.php?pag=$i' class='page-link'>".($i+1)."</a></li>";
+		}
+?>
+					<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
                 </ul>
-            </div>
+			</div>
+			
         </div>
     </div>
 	<!-- Edit Modal HTML -->
