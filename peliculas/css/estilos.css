@@ -221,6 +221,10 @@ body {
 input#inlineFormInputName {
 	height: 25px;
 	min-width: 250px;
+	margin-right: 10px;
+}
+
+button#buscar {
 	margin-right: 20px;
 }
 
