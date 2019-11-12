@@ -150,11 +150,13 @@ $(document).ready(function(){
 						<td><?php echo $pelicula['sinopsis']; ?></td>
                         <td><img class="cartel" src="<?php echo $pelicula['cartel']; ?>"></td>
                         <td>
-                            <a href="#editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Actualizar">&#xE254;</i></a>
 							<!--
 							<a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 							-->
-							<a href="controlador.php?delete=<?php echo $pelicula['id_pelicula'];?>"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="controlador.php?delete=<?php echo $pelicula['id_pelicula'];?>"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+							<a href="#viewActorsModal<?php echo $pelicula['id_pelicula']; ?>" class="actors" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Actores">face</i></a>
+							<a href="ver_criticas.php?pelicula=<?php echo $pelicula['id_pelicula'];?>"><i class="material-icons" data-toggle="tooltip" title="Críticas">grade</i></a>
                         </td>
                     </tr>
 <?php
@@ -190,7 +192,7 @@ $(document).ready(function(){
 			
         </div>
     </div>
-	<!-- Edit Modal HTML -->
+	<!-- Add Modal HTML -->
 	<div id="addFilmModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -290,6 +292,38 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+
+	<!-- Actores Modal -->
+	<div id="viewActorsModal<?php echo $pelicula['id_pelicula']; ?>" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">						
+					<h4 class="modal-title">Reparto</h4>
+				</div>
+				<div class="modal-body">
+<?php
+		//Mostramos los actores de esa película
+		//Mostramos las peliculas desde la BD
+		$conexion = conectar("2daw");
+
+		//La consulta
+		$conexion->query("SET NAMES utf8");
+		$consulta_actores = "SELECT * FROM actores INNER JOIN actores_peliculas ON actores_peliculas.id_actor = actores.id_actor WHERE actores_peliculas.id_pelicula = {$pelicula['id_pelicula']}";
+		$resultado_actores = $conexion->query($consulta_actores);
+
+		//Recorremos los resultados
+		while($actor = $resultado_actores->fetch_array()) {
+			echo "<h5>{$actor['nombre']} {$actor['apellidos']}</h5>";
+		}
+?>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Aceptar">
+					</div>
+			</div>
+		</div>
+	</div>
+	
 <?php
 		}
 
