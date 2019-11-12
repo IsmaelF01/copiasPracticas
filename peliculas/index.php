@@ -150,7 +150,7 @@ $(document).ready(function(){
 						<td><?php echo $pelicula['sinopsis']; ?></td>
                         <td><img class="cartel" src="<?php echo $pelicula['cartel']; ?>"></td>
                         <td>
-                            <a href="#editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Actualizar">&#xE254;</i></a>
+                            <a href="#editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Actualizar">edit</i></a>
 							<!--
 							<a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 							-->
