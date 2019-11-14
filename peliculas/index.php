@@ -193,7 +193,7 @@ $(document).ready(function(){
 			
         </div>
     </div>
-	<!-- Edit Modal HTML -->
+	<!-- Add Modal HTML -->
 	<div id="addFilmModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -326,6 +326,17 @@ $(document).ready(function(){
 	</div>
 
 
+<?php
+		}
+?>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Aceptar">
+					</div>
+			</div>
+		</div>
+	</div>
+	
 <?php
 		}
 
