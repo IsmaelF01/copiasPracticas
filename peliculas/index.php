@@ -308,6 +308,7 @@ $(document).ready(function(){
 <?php
 			//Consulta para sacar todos los actores que intervienen en esta película
 			$conexion = conectar("2daw");
+			$conexion->query("SET NAMES utf8");
 			$consulta_actores = "SELECT * FROM actores INNER JOIN actorespeliculas ON actores.id_actor = actorespeliculas.id_actor WHERE actorespeliculas.id_pelicula = {$pelicula['id_pelicula']}";
 			$resultado_actores = $conexion->query($consulta_actores);
 			//Recorremos el resultado y pintamos los actores
