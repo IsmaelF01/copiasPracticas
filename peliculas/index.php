@@ -151,10 +151,13 @@ $(document).ready(function(){
                         <td><img class="cartel" src="<?php echo $pelicula['cartel']; ?>"></td>
                         <td>
                             <a href="#editFilmModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<!--
-							<a href="#deleteFilmModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							-->
+
 							<a href="controlador.php?delete=<?php echo $pelicula['id_pelicula'];?>"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+					
+							<a href="#verActoresModal<?php echo $pelicula['id_pelicula']; ?>" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Actores">face</i></a>
+							
+							<a href="criticas.php?id_pelicula=<?php echo $pelicula['id_pelicula']; ?>"><i class="material-icons" data-toggle="tooltip" title="Edit">grade</i></a>
+							
                         </td>
                     </tr>
 <?php
@@ -290,6 +293,39 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+
+	<!-- Actores de la película -->
+	<!-- Ver actores Modal HTML -->
+	<div id="verActoresModal<?php echo $pelicula['id_pelicula']; ?>" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">	
+					<div class="modal-header">						
+						<h4 class="modal-title">Reparto</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+
+<?php
+			//Consulta para sacar todos los actores que intervienen en esta película
+			$conexion = conectar("2daw");
+			$consulta_actores = "SELECT * FROM actores INNER JOIN actorespeliculas ON actores.id_actor = actorespeliculas.id_actor WHERE actorespeliculas.id_pelicula = {$pelicula['id_pelicula']}";
+			$resultado_actores = $conexion->query($consulta_actores);
+			//Recorremos el resultado y pintamos los actores
+	
+			while ($actor = $resultado_actores->fetch_array()) {
+				echo "<h5>{$actor['nombre']} {$actor['apellidos']}</h5>";
+			}
+?>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" name='edit' class="btn btn-info" value="Save">
+					</div>
+				</div>
+			</div>
+	</div>
+
+
 <?php
 		}
 
