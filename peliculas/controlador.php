@@ -29,7 +29,7 @@
     }
 
     //Eliminar
-    if ($_GET['delete']) {
+    if (isset($_GET['delete'])) {
 
         $conexion = conectar("2daw");
         $consulta = "DELETE FROM peliculas WHERE id_pelicula={$_GET['delete']}";
@@ -69,4 +69,44 @@
         }
         
     }
+
+    //Borrar crítica
+    if (isset($_GET['borrar_critica'])){
+
+        $conexion = conectar("2daw");
+        $consulta = "DELETE FROM criticas WHERE id_critica={$_GET['borrar_critica']}";
+
+        if (!$conexion->query($consulta)) {
+            echo "Error borrando ".$conexion->error;
+        } else {
+            $conexion->close();
+            header("Location: criticas.php?id_pelicula={$_GET['pelicula']}");
+        }
+    }
+
+    //Añadir crítica
+    if (isset($_POST['add_critica'])) {        
+        $conexion = conectar("2daw");
+
+        //Deberíamos filtrar lo que recibimos de POST
+        $autor = $_POST['autor'];
+        $nota = $_POST['nota'];
+        $texto = $_POST['texto'];
+        $id_pelicula = $_POST['id_pelicula'];
+
+        //Insertamos lo recibido del formulario. Todos los varchar con '
+        $consulta = "INSERT INTO criticas (id_pelicula,autor,texto,nota) VALUES ($id_pelicula,'$autor',$nota,'$texto')";
+        //Para que no de problemas con los caracteres especiales
+        $conexion->query("SET NAMES utf8");
+        //Si da error lo pintamos directamente, sino redirigimos a index.php
+        if (!$conexion->query($consulta)) {
+            echo "Error insertando ".$conexion->error;
+        } else {
+            $conexion->close();
+            header("Location: criticas.php?id_pelicula={$id_pelicula}");
+        }
+        
+    }
+
+
 
