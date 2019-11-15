@@ -48,7 +48,7 @@
 		$conexion = conectar("2daw");
 
 		//La consulta
-		$consulta = "SELECT * FROM criticas WHERE id_pelicula={$_GET['id_pelicula']}";
+		$consulta = "SELECT * FROM criticas WHERE id_pelicula={$_GET['id_pelicula']} ORDER BY nota DESC";
 
 		//Para mostrar correctamente la codificación
 		$conexion->query("SET NAMES utf8");

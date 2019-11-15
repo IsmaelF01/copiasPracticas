@@ -21,6 +21,7 @@
         //Si da error lo pintamos directamente, sino redirigimos a index.php
         if (!$conexion->query($consulta)) {
             echo "Error insertando ".$conexion->error;
+            $conexion->close();
         } else {
             $conexion->close();
             header("Location: index.php");
@@ -36,6 +37,7 @@
 
         if (!$conexion->query($consulta)) {
             echo "Error borrando ".$conexion->error;
+            $conexion->close();
         } else {
             $conexion->close();
             header("Location: index.php");
@@ -63,6 +65,7 @@
         if (!$conexion->query($consulta)) {
             echo "Error modificando ".$conexion->error;
             echo $consulta;
+            $conexion->close();
         } else {
             $conexion->close();
             header("Location: index.php");
@@ -78,6 +81,7 @@
 
         if (!$conexion->query($consulta)) {
             echo "Error borrando ".$conexion->error;
+            $conexion->close();
         } else {
             $conexion->close();
             header("Location: criticas.php?id_pelicula={$_GET['pelicula']}");
@@ -95,12 +99,13 @@
         $id_pelicula = $_POST['id_pelicula'];
 
         //Insertamos lo recibido del formulario. Todos los varchar con '
-        $consulta = "INSERT INTO criticas (id_pelicula,autor,texto,nota) VALUES ($id_pelicula,'$autor',$nota,'$texto')";
+        $consulta = "INSERT INTO criticas (id_pelicula,autor,nota,texto) VALUES ($id_pelicula,'$autor',$nota,'$texto')";
         //Para que no de problemas con los caracteres especiales
         $conexion->query("SET NAMES utf8");
         //Si da error lo pintamos directamente, sino redirigimos a index.php
         if (!$conexion->query($consulta)) {
             echo "Error insertando ".$conexion->error;
+            $conexion->close();
         } else {
             $conexion->close();
             header("Location: criticas.php?id_pelicula={$id_pelicula}");

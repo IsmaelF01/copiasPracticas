@@ -307,20 +307,20 @@ $(document).ready(function(){
 
 <?php
 			//Consulta para sacar todos los actores que intervienen en esta película
-			$conexion = conectar("2daw");
-			$conexion->query("SET NAMES utf8");
-			$consulta_actores = "SELECT * FROM actores INNER JOIN actorespeliculas ON actores.id_actor = actorespeliculas.id_actor WHERE actorespeliculas.id_pelicula = {$pelicula['id_pelicula']}";
-			$resultado_actores = $conexion->query($consulta_actores);
+			$conexion2 = conectar("2daw");
+			//$conexion->query("SET NAMES utf8");
+			$consulta_actores = "SELECT * FROM actores INNER JOIN actorespeliculas ON actores.id_actor = actorespeliculas.id_actor WHERE actorespeliculas.id_pelicula = {$pelicula['id_pelicula']}";	
+			$resultado_actores = $conexion2->query($consulta_actores);
 			//Recorremos el resultado y pintamos los actores
 	
 			while ($actor = $resultado_actores->fetch_array()) {
 				echo "<h5>{$actor['nombre']} {$actor['apellidos']}</h5>";
 			}
+			$conexion2->close();
 ?>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" name='edit' class="btn btn-info" value="Save">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Aceptar">
 					</div>
 				</div>
 			</div>
