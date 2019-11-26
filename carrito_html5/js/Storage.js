@@ -2,12 +2,12 @@
 //Añadir nuevo libro al carro de la compra
 function addItem(isbn, titulo, autor, precio) {
 	if (localStorage.getItem(isbn) == null) {
-		var object = { 'titulo' : titulo, 'autor' : autor, 'precio' : precio, 'cantidad' : 1 };
+		var object = { 'isbn': isbn, 'titulo' : titulo, 'autor' : autor, 'precio' : precio, 'cantidad' : 1 };
 		localStorage.setItem(isbn, JSON.stringify(object));
 	} else {
 		var libro = JSON.parse(localStorage.getItem(isbn));
 		cant = parseInt(libro.cantidad,10) + 1;
-		var object = { 'titulo' : titulo, 'autor' : autor, 'precio' : precio, 'cantidad' : cant };
+		var object = { 'isbn': isbn, 'titulo' : titulo, 'autor' : autor, 'precio' : precio, 'cantidad' : cant };
 		localStorage.setItem(isbn, JSON.stringify(object));
 	}
 	document.getElementById('numero').innerHTML = localStorage.length;
