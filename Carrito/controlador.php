@@ -1,8 +1,17 @@
 <?php
 session_start();
+//session_destroy();
 
-include('Carrito.php');
-include('LineaProducto.php');
+//Autocarga de clases
+spl_autoload_register(function ( $NombreClase ) {
+    if (file_exists($NombreClase . '.php'))
+        include_once($NombreClase . '.php');
+
+    if (file_exists("./clases/". $NombreClase . ".php")) {
+        include_once("./clases/". $NombreClase . '.php');
+    }
+}
+);
 
     //Si pulsamos añadir al carrito
     if (isset($_POST['add'])) {
@@ -31,36 +40,63 @@ include('LineaProducto.php');
         header("Location: index.php");
     }
 
-
-    //Si pulsamos borrar
-    if (isset($_GET['delete'])) {
+    //Si pulsamos eliminar al carrito
+    if (isset($_GET['del'])) {
         //Comprobar que hay carro en la sesión
-        if (isset($_SESSION['carro'])) { 
+        if (isset($_SESSION['carro'])) {
             $carro = unserialize($_SESSION['carro']);
-            $carro->eliminar($_GET['delete']);
+            $carro->eliminar($_GET['del']);
             $_SESSION['carro'] = serialize($carro);
         }
         header("Location: verCarro.php");
     }
 
-    //Incrementar cantidad
-    if (isset($_GET['plus'])) {
-        if (isset($_SESSION['carro'])) { 
+    //Sumar cantidad en el carrito
+    if (isset($_GET['sumar'])) {
+        //Comprobar que hay carro en la sesión
+        if (isset($_SESSION['carro'])) {
             $carro = unserialize($_SESSION['carro']);
-            $carro->sumar($_GET['plus']);
+            $carro->sumar($_GET['sumar']);
             $_SESSION['carro'] = serialize($carro);
         }
-        header("Location: verCarro.php");        
+        header("Location: verCarro.php");
     }
 
-    //Decrementar cantidad
-    if (isset($_GET['minus'])) {
-        if (isset($_SESSION['carro'])) { 
+    //Restar cantidad en el carrito
+    if (isset($_GET['restar'])) {
+        //Comprobar que hay carro en la sesión
+        if (isset($_SESSION['carro'])) {
             $carro = unserialize($_SESSION['carro']);
-            $carro->restar($_GET['minus']);
+            $carro->restar($_GET['restar']);
             $_SESSION['carro'] = serialize($carro);
         }
-        header("Location: verCarro.php");        
-    }    
+        header("Location: verCarro.php");
+    }
+
+    //Login de usuarios
+    if (isset($_POST['pass'])) {
+        require("conexion.php");
+        $conexion = conectar("2daw");
+
+        $consulta = "SELECT * FROM usuarios WHERE email='{$_POST['email']}'";
+        $resultado = $conexion->query($consulta);
+        $usuario = $resultado->fetch_assoc();
+        if ($usuario['pass'] == $_POST['pass']) {
+            //Creamos la sesión en la COOKIE
+            setcookie('usuario', serialize($usuario), time()+2592000, 'cookies/', "", false, true);
+
+            header("Location: index.php");
+        }
+
+    } else {
+        header("Location: index.php");
+    }
+
+    //Cerrar la sesión borrando la cookie
+    if (isset($_GET['cerrar'])) {
+        setcookie('usuario', "", time()-5, 'cookies/', "", false, true);        
+        header("Location: index.php");
+    }
+
 
 ?>
