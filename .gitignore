@@ -1,2 +1,5 @@
 *.tmp
-discos/plugins/*
+discos/plugins/
+discos/images/
+discos/js/
+
