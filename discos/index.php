@@ -10,7 +10,7 @@
   
   <meta name="author" content="Themefisher.com">
 
-  <title>Airspace | Creative Agency Bootstrap template</title>
+  <title>Mis Discos</title>
 
   <!-- Mobile Specific Meta-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,43 +51,16 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand" href="index.html">
+							<a class="navbar-brand" href="index.php">
 								<img src="images/logo.png" alt="Logo">
 							</a>
 						</div>
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="index.html">Home</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portfolio <span class="ion-ios-arrow-down"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="portfolio.html">Portfolio Filter</a></li>
-										<li><a href="portfolio-single.html">Portfolio Single</a></li>
-									</ul>
-								</li>
-								<li><a href="service.html">Service</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog <span class="ion-ios-arrow-down"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="blog-grid.html">Blog Grid</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-										<li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-										<li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-										<li><a href="blog-full-width.html">Blog Full Width</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <span class="ion-ios-arrow-down"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="about.html">About Us</a></li>
-										<li><a href="coming-soon.html">Coming Soon</a></li>
-										<li><a href="404.html">404 Page</a></li>
-										<li><a href="faq.html">FAQ</a></li>
-										<li><a href="pricing.html">Pricing Table</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
+								<!--<li><a href="index.php">Inicio</a></li>-->
+								
+
 							</ul>
 							</div><!-- /.navbar-collapse -->
 							</div><!-- /.container-fluid -->
@@ -97,22 +70,6 @@
 			</div>
 			</header><!-- header close -->
 
-<section class="page-title bg-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <h1>Some of our latest projects.</h1>
-          <p>Don’t just take our word for it. Check out some of our latest work.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
 <!-- Portfolio Start -->
 <section class="portfolio-work">
   <div class="container">
@@ -121,19 +78,19 @@
         <div class="block">
           <div class="portfolio-menu">
             <ul>
-              <li class="filter" data-filter="all">All</li>
-              <li class="filter" data-filter=".Branding">Branding</li>
-              <li class="filter" data-filter=".Websites">Websites</li>
-              <li class="filter" data-filter=".Graphic">Graphic</li>
-              <li class="filter" data-filter=".design">Design</li>
-              <li class="filter" data-filter=".Video">Video</li>
+              <li class="filter" data-filter="all">Todos</li>
+              <li class="filter" data-filter=".Rock">Rock</li>
+              <li class="filter" data-filter=".Metal">Metal</li>
+              <li class="filter" data-filter=".Pop">Pop</li>
+              <li class="filter" data-filter=".electro">Electrónica</li>
+              <li class="filter" data-filter=".mamandurrias">Mamandurrias</li>
             </ul>
           </div>
           <div class="portfolio-contant">
             <ul class="portfolio-contant-active text-center portfolio-popup">
-              <li class="mix Branding">
-                <a class="portfolio-popup" href="images/portfolio/work1.jpg">
-                  <img src="images/portfolio/work1.jpg" alt="">
+              <li class="mix Rock">
+                <a class="portfolio-popup" href="images/discos/portada1.jpg">
+                  <img src="images/discos/portada1.jpg" alt="">
                   <div class="item-overly">
                     <div class="position-center">
                       <h4>Rio Furniture</h4>
@@ -142,20 +99,20 @@
                   </div>
                 </a>
               </li>
-              <li class="mix Websites">
-                <a  href="images/portfolio/work2.jpg">
-                  <img src="images/portfolio/work2.jpg" alt="">
+              <li class="mix Metal">
+                <a  href="images/discos/portada2.jpg">
+                  <img src="images/discos/portada2.jpg" alt="">
                   <div class="item-overly">
                     <div class="position-center">
-                      <h4>Behance Design</h4>
+                      <h4>Behance electro</h4>
                       <p>Labore et dolore magna aliqua. Ut enim ad </p>
                     </div>
                   </div>
                 </a>
               </li>
-              <li class="mix Graphic">
-                <a href="images/portfolio/work3.jpg">
-                  <img src="images/portfolio/work3.jpg" alt="">
+              <li class="mix Pop">
+                <a href="images/discos/portada3.jpg">
+                  <img src="images/discos/portada3.jpg" alt="">
                   <div class="item-overly">
                     <div class="position-center">
                       <h4>Brothers Furniture</h4>
@@ -164,9 +121,9 @@
                   </div>
                 </a>
               </li>
-              <li class="mix design">
-                <a href="images/portfolio/work4.jpg">
-                  <img src="images/portfolio/work4.jpg" alt="">
+              <li class="mix electro">
+                <a href="images/discos/portada4.jpg">
+                  <img src="images/discos/portada4.jpg" alt="">
                   <div class="item-overly">
                     <div class="position-center">
                       <h4>Adestra Cookup</h4>
@@ -175,9 +132,9 @@
                   </div>
                 </a>
               </li>
-              <li class="mix Video">
-                <a href="images/portfolio/work5.jpg">
-                  <img src="images/portfolio/work5.jpg" alt="">
+              <li class="mix mamandurrias">
+                <a href="images/discos/portada5.jpg">
+                  <img src="images/discos/portada5.jpg" alt="">
                   <div class="item-overly">
                     <div class="position-center">
                       <h4>Texas Boxing</h4>
@@ -187,9 +144,9 @@
                   </div>
                 </a>
               </li>
-              <li class="mix Graphic">
-                <a href="images/portfolio/work6.jpg">
-                  <img src="images/portfolio/work6.jpg" alt="">
+              <li class="mix Pop">
+                <a href="images/discos/portada6.jpg">
+                  <img src="images/discos/portada6.jpg" alt="">
                   <div class="item-overly">
                     <div class="position-center">
                       <h4>Apple Mockup</h4>
@@ -212,18 +169,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="footer-manu">
-					<ul>
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Contact us</a></li>
-						<li><a href="#">How it works</a></li>
-						<li><a href="#">Support</a></li>
-						<li><a href="#">Terms</a></li>
-					</ul>
-				</div>
-				<p class="copyright">Copyright 2018 &copy; Design & Developed by <a href="http://www.themefisher.com">themefisher.com</a>. All rights reserved.
+				
+				<p class="copyright">Copyright 2019 &copy; electro & Developed by <a href="https://github.com/jjguillen">ProfeJJ</a>
 					<br>
-					Get More <a href="https://themefisher.com/free-bootstrap-templates/" target="_blank">Free Bootstrap Templates</a>
 				</p>
 			</div>
 		</div>
