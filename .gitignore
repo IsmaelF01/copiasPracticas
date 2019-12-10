@@ -1,1 +1,6 @@
 *.tmp
+discos/css/*
+discos/fonts/*
+discos/img/*
+discos/js/*
+discos/scss/*
