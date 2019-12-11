@@ -1,3 +1,19 @@
+<?php
+spl_autoload_register(function ( $NombreClase ) {
+  if (file_exists($NombreClase . '.php'))
+      include_once($NombreClase . '.php');
+
+  if (file_exists("./Modelo/". $NombreClase . ".php")) {
+      include_once("./Modelo/". $NombreClase . '.php');
+  }
+
+  if (file_exists("./Vista/". $NombreClase . ".php")) {
+    include_once("./Vista/". $NombreClase . '.php');
+  }  
+}
+);
+
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -6,9 +22,9 @@
 <html class="no-js"> <!--<![endif]-->
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="Aviato E-Commerce Template">
+  <meta name="description" content="Web Discos Favoritos">
   
-  <meta name="author" content="Themefisher.com">
+  <meta name="author" content="ProfeJJ">
 
   <title>Mis Discos</title>
 
@@ -88,73 +104,22 @@
           </div>
           <div class="portfolio-contant">
             <ul class="portfolio-contant-active text-center portfolio-popup">
-              <li class="mix Rock">
-                <a class="portfolio-popup" href="images/discos/portada1.jpg">
-                  <img src="images/discos/portada1.jpg" alt="">
-                  <div class="item-overly">
-                    <div class="position-center">
-                      <h4>Rio Furniture</h4>
-                      <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="mix Metal">
-                <a  href="images/discos/portada2.jpg">
-                  <img src="images/discos/portada2.jpg" alt="">
-                  <div class="item-overly">
-                    <div class="position-center">
-                      <h4>Behance electro</h4>
-                      <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="mix Pop">
-                <a href="images/discos/portada3.jpg">
-                  <img src="images/discos/portada3.jpg" alt="">
-                  <div class="item-overly">
-                    <div class="position-center">
-                      <h4>Brothers Furniture</h4>
-                      <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="mix electro">
-                <a href="images/discos/portada4.jpg">
-                  <img src="images/discos/portada4.jpg" alt="">
-                  <div class="item-overly">
-                    <div class="position-center">
-                      <h4>Adestra Cookup</h4>
-                      <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="mix mamandurrias">
-                <a href="images/discos/portada5.jpg">
-                  <img src="images/discos/portada5.jpg" alt="">
-                  <div class="item-overly">
-                    <div class="position-center">
-                      <h4>Texas Boxing</h4>
-                      <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                      
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="mix Pop">
-                <a href="images/discos/portada6.jpg">
-                  <img src="images/discos/portada6.jpg" alt="">
-                  <div class="item-overly">
-                    <div class="position-center">
-                      <h4>Apple Mockup</h4>
-                      <p>Labore et dolore magna aliqua. Ut enim ad </p>
-                    </div>
-                  </div>
-                </a>
-              </li>
+
+<?php
+  //Conexión BD. Usa modelo de discos MDisco
+  $mDisco = new MDisco();
+
+  //Consulta de los discos al modelo, devuelve array de Disco
+  $discos = $mDisco->getDiscos();
+
+  //Imprimir discos
+  foreach($discos as $disco) {
+    VistaDisco::imprimirDiscoPortada($disco);
+  }
+
+
+?>
+
             </ul>
           </div>
         </div>
