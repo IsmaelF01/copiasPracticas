@@ -36,13 +36,16 @@ spl_autoload_register(function ( $NombreClase ) {
             //Array de Discos con la consulta
             $discos = array();
 
-            $stmt = $this->conexion->prepare("SELECT * FROM discos");
-            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Disco');
-            $stmt->execute();
-            while ($disco = $stmt->fetch()){
-                $discos[] = $disco;
+            try {
+                $stmt = $this->conexion->prepare("SELECT * FROM discos");
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Disco');
+                $stmt->execute();
+                while ($disco = $stmt->fetch()){
+                    $discos[] = $disco;
+                }
+            } catch (PDOException $e){
+                echo $e->getMessage();
             }
-
             return $discos;
         }
 
