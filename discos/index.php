@@ -113,13 +113,17 @@ spl_autoload_register(function ( $NombreClase ) {
 
   //Consulta de los discos al modelo, devuelve array de Disco
   $discos = $mDisco->getDiscos();
-
   //Imprimir discos
   foreach($discos as $disco) {
     VistaDisco::imprimirDiscosPortada($disco);
   }
 
 ?>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
             </ul>
           </div>
         </div>
