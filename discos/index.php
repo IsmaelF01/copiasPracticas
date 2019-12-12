@@ -118,13 +118,7 @@ spl_autoload_register(function ( $NombreClase ) {
     VistaDisco::imprimirDiscosPortada($disco);
   }
 
-?>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
-            </ul>
+?>            </ul>
           </div>
         </div>
       </div>
