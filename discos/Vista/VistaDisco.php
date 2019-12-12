@@ -8,10 +8,11 @@ spl_autoload_register(function ( $NombreClase ) {
 
     class VistaDisco
     {
-
+        //Métodos front-end
+        ///////////////////////////////////////////////////////
         static function imprimirDiscosPortada($unDisco) {
             echo "<li class='mix ".$unDisco->getEstilo()."'>";
-            echo "<a class='portfolio-popup' href='".$unDisco->getPortada()."'>";
+            echo "<a class='disco' href='ver_detalle.php?id=".$unDisco->id_disco."'>";
             echo "  <img src='".$unDisco->getPortada()."' alt=''>";
             echo "  <div class='item-overly'>";
             echo "    <div class='position-center'>";
@@ -24,6 +25,22 @@ spl_autoload_register(function ( $NombreClase ) {
             
         }
 
+        static function imprimirDisco($unDisco) {
+
+            echo "<div class='media'>";
+            echo "<img width='400' src='".$unDisco->getPortada()."' class='align-self-start mr-3' alt='...'>";
+            echo "<div class='media-body'>";
+            echo "  <h2 class='mt-0'>".$unDisco->getTitulo()."</h2>";
+            echo "  <h4>".$unDisco->getAutor()."</h4>";
+            echo "  <p>CANCIONES (".$unDisco->getNcanciones().")</p>";
+            echo "</div>";
+            echo "</div>";
+
+        }
+
+
+
+        //Métodos back-end
         static function imprimirDiscosAdmin($unDisco) {
             echo "<tbody>";
             echo "<tr>";
@@ -49,7 +66,7 @@ spl_autoload_register(function ( $NombreClase ) {
             echo "      <a href='#' class='btn btn-warning btn-circle'>";
             echo "       <i class='fas fa-edit'></i>";
             echo "      </a>";
-            echo "      <a href='#' class='btn btn-danger btn-circle'>";
+            echo "      <a href='controller.php?action=delete&id={$unDisco->id_disco}' class='btn btn-danger btn-circle'>";
             echo "       <i class='fas fa-trash'></i>";
             echo "      </a>";            
             echo "  </td>";

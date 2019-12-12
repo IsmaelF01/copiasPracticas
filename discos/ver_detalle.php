@@ -80,45 +80,21 @@ spl_autoload_register(function ( $NombreClase ) {
 			</div>
 			</header><!-- header close -->
 
-<!-- Portfolio Start -->
-<section class="portfolio-work">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <div class="portfolio-menu">
-            <ul>
-              <li class="filter" data-filter="all">Todos</li>
-              <li class="filter" data-filter=".Rock">Rock</li>
-              <li class="filter" data-filter=".Metal">Metal</li>
-              <li class="filter" data-filter=".Pop">Pop</li>
-              <li class="filter" data-filter=".Electro">Electrónica</li>
-              <li class="filter" data-filter=".Mamandurrias">Mamandurrias</li>
-            </ul>
-          </div>
-          <div class="portfolio-contant">
-            <ul class="portfolio-contant-active text-center">
-   
-
+            <section class="portfolio-work">
+                <div class="container">
+                    <div class="row">
 
 <?php
   //Conexión BD. Usa modelo de discos MDisco
   $mDisco = new MDisco();
+  $disco = $mDisco->getDisco($_GET['id']);
+  VistaDisco::imprimirDisco($disco);
 
-  //Consulta de los discos al modelo, devuelve array de Disco
-  $discos = $mDisco->getDiscos();
-  //Imprimir discos
-  foreach($discos as $disco) {
-    VistaDisco::imprimirDiscosPortada($disco);
-  }
+?>          
 
-?>            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+                    </div>
+                </div>
+            </section>
 
 
 <!-- footer Start -->

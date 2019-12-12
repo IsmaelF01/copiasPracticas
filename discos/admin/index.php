@@ -79,8 +79,7 @@ spl_autoload_register(function ( $NombreClase ) {
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Acciones:</h6>
-            <a class="collapse-item" href="controlador.php?accion=insertar">Añadir nuevo</a>
-            <a class="collapse-item" href="controlador.php?accion=eliminart">Eliminar todos</a>
+            <a class="collapse-item" href="#addDisco" data-toggle="modal">Añadir nuevo</a>
           </div>
         </div>
       </li>
@@ -243,6 +242,56 @@ spl_autoload_register(function ( $NombreClase ) {
       </div>
     </div>
   </div>
+
+	<!-- Edit Modal HTML -->
+	<div id="addDisco" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form method='POST' action='controller.php'>
+					<div class="modal-header">						
+						<h4 class="modal-title">Añadir Disco</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Título</label>
+							<input type="text" name="titulo" class="form-control" required>
+						</div>
+						<div class="form-group">
+              <label>Estilo</label>
+              <select name="estilo" class="form-control" required>
+                <option value='Rock'>Rock</option>
+                <option value='Metal'>Metal</option>
+                <option value='Pop'>Pop</option>
+                <option value='Electro'>Electrónica</option>
+                <option value='Mamandurrias'>Mamandurrias</option>
+              </select>
+						</div>
+						<div class="form-group">
+							<label>Autor</label>
+							<input type="text" name="autor" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Año</label>
+							<input type="text" name="year" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Num Canciones</label>
+							<input type="number" name="ncanciones" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Portada</label>
+							<input type="text" name="portada" class="form-control" required>
+						</div>				
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" name='insert' class="btn btn-success" value="Nuevo">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
