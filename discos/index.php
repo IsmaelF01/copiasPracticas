@@ -98,12 +98,14 @@ spl_autoload_register(function ( $NombreClase ) {
               <li class="filter" data-filter=".Rock">Rock</li>
               <li class="filter" data-filter=".Metal">Metal</li>
               <li class="filter" data-filter=".Pop">Pop</li>
-              <li class="filter" data-filter=".electro">Electrónica</li>
-              <li class="filter" data-filter=".mamandurrias">Mamandurrias</li>
+              <li class="filter" data-filter=".Electro">Electrónica</li>
+              <li class="filter" data-filter=".Mamandurrias">Mamandurrias</li>
             </ul>
           </div>
           <div class="portfolio-contant">
             <ul class="portfolio-contant-active text-center portfolio-popup">
+   
+
 
 <?php
   //Conexión BD. Usa modelo de discos MDisco
@@ -114,12 +116,10 @@ spl_autoload_register(function ( $NombreClase ) {
 
   //Imprimir discos
   foreach($discos as $disco) {
-    VistaDisco::imprimirDiscoPortada($disco);
+    VistaDisco::imprimirDiscosPortada($disco);
   }
 
-
 ?>
-
             </ul>
           </div>
         </div>
