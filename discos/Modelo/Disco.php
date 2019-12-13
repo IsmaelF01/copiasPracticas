@@ -3,6 +3,7 @@
     class Disco 
     {
         protected $titulo, $estilo, $autor, $year, $ncanciones, $portada;
+        protected $canciones;
 
         //Constructor
         function __construct($unTitulo="", $unEstilo="", $unAutor="", $unYear="", $unNcanciones="", $unaPortada="") {
@@ -12,6 +13,7 @@
             $this->year = $unYear;
             $this->ncanciones = $unNcanciones;
             $this->portada = $unaPortada;
+            $this->canciones = array();
         }
 
         //Getters y setters
@@ -39,6 +41,11 @@
             return $this->portada;
         }
 
+        function getCanciones() {
+            return $this->canciones;
+        }
+
+
         function setTitulo($unTitulo) {
             $this->titulo = $unTitulo;
         }
@@ -61,6 +68,25 @@
 
         function setPortada($unaPortada) {
             $this->portada = $unaPortada;
+        }
+
+        function setCanciones($unasCanciones) {
+            $this->canciones = $unasCanciones;
+        }
+
+        //Añadir una canción a un disco
+        function addCancion($unaCancion) {
+            $this->canciones[] = $unaCancion;
+        }
+
+        //Eliminar una canción
+        function deleteCancion($unaCancion) {
+            foreach($this->canciones as $key => $cancion) {
+                if ($cancion->getTitulo() == $unaCancion->getTitulo()) {
+                    unset($this->canciones[$key]);
+                    $this->canciones = array_values($this->canciones);
+                }
+            }
         }
 
 

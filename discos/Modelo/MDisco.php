@@ -62,6 +62,11 @@ spl_autoload_register(function ( $NombreClase ) {
             } catch (PDOException $e){
                 echo $e->getMessage();
             }
+
+            //Devolvemos el disco con sus canciones
+            $canciones = $this->getCanciones($_GET['id']);
+            $disco->setCanciones($canciones);
+
             return $disco;
         } 
         
@@ -90,9 +95,43 @@ spl_autoload_register(function ( $NombreClase ) {
               } catch(PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
               }
-
         }
 
+        //Update un disco
+        function updateDisco($id,$titulo,$estilo,$autor,$year,$ncanciones,$portada) {
+            try {
+                $stmt = $this->conexion->prepare('UPDATE discos SET titulo = :titulo, estilo = :estilo, autor = :autor, year = :anio, ncanciones = :ncanciones, portada = :portada WHERE id_disco = :id');
+                $stmt->bindParam(':titulo', $titulo);
+                $stmt->bindParam(':estilo', $estilo);
+                $stmt->bindParam(':autor', $autor);
+                $stmt->bindParam(':anio', $year);
+                $stmt->bindParam(':ncanciones', $ncanciones);
+                $stmt->bindParam(':portada', $portada);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();               
+                } catch(PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+                }
+        }
+
+        //Listar canciones de un disco
+        function getCanciones($id_disco) {
+           //Array de canciones con la consulta
+           $canciones = array();
+
+           try {
+               $stmt = $this->conexion->prepare("SELECT * FROM canciones WHERE id_disco = :id");
+               $stmt->bindParam(':id',$id_disco);
+               $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Cancion');
+               $stmt->execute();
+               while ($cancion = $stmt->fetch()){
+                   $canciones[] = $cancion;
+               }
+           } catch (PDOException $e){
+               echo $e->getMessage();
+           }
+           return $canciones;            
+        }
 
     }
 

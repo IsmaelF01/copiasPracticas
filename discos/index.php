@@ -104,7 +104,6 @@ spl_autoload_register(function ( $NombreClase ) {
 <?php
   //Conexión BD. Usa modelo de discos MDisco
   $mDisco = new MDisco();
-
   //Consulta de los discos al modelo, devuelve array de Disco
   $discos = $mDisco->getDiscos();
   //Imprimir discos

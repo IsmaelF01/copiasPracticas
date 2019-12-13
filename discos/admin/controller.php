@@ -22,11 +22,18 @@ spl_autoload_register(function ( $NombreClase ) {
     }
 
     //Insertar nuevo disco
-    if ($_POST['insert']) {
+    if (isset($_POST['insert'])) {
         $mDisco = new MDisco();
         $disco = $mDisco->insertDisco($_POST['titulo'],$_POST['estilo'],$_POST['autor'],$_POST['year'],$_POST['ncanciones'],$_POST['portada']);
         header("Location: index.php");
     }    
+
+    //Modificar un disco
+    if (isset($_POST['update'])) {
+        $mDisco = new MDisco();
+        $disco = $mDisco->updateDisco($_POST['id'],$_POST['titulo'],$_POST['estilo'],$_POST['autor'],$_POST['year'],$_POST['ncanciones'],$_POST['portada']);
+        header("Location: index.php");
+    }
 
 
 ?>
