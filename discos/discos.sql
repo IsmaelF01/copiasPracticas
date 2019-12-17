@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2019 a las 19:09:02
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.11
+-- Tiempo de generación: 17-12-2019 a las 17:40:28
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,11 +57,11 @@ INSERT INTO `discos` (`id_disco`, `titulo`, `estilo`, `autor`, `year`, `ncancion
 (12, 'Dirty Computer', 'Electro', 'Janielle Monae', 2018, 14, 'https://www.totemtanz.com/image/cache//data/Musica3/7567-86579-3-590x590.jpg'),
 (13, 'Channels', 'Electro', 'Daniel Brandt', 2018, 7, 'https://assets.boomkat.com/spree/products/576113/large/4050486115527.jpg'),
 (14, 'Elaenla', 'Electro', 'Floating Points', 2019, 8, 'https://muzikalia.com/wp-content/uploads/2016/10/floatingpointselaeniacover.jpg'),
-(15, 'Who Else ', 'Electro', 'Modeselektor', 2019, 8, 'https://www.comolasgrecas.com/wp-content/uploads/2019/02/Modeselektor.jpg'),
 (16, 'When We All Fall Asleep, Where Do We Go?', 'Mamandurrias', 'Billie Eilish', 2019, 14, 'https://images-na.ssl-images-amazon.com/images/I/61e23dfEOBL._SY355_.jpg'),
 (17, 'Hollywood\'s Bleeding', 'Mamandurrias', 'Post Malone', 2019, 17, 'http://jenesaispop.com/wp-content/uploads/2019/09/hollywoods-bleeding.jpg'),
 (18, 'Shawn Mendes', 'Mamandurrias', 'Shawn Mendes', 2019, 14, 'https://lastfm.freetls.fastly.net/i/u/770x0/7fc1d5f109ade40ac913ff7b3466bdc9.jpg'),
-(19, 'No. 6 Collaborations Project', 'Mamandurrias', 'Ed Sheeran', 2019, 16, 'https://tangodiario.com.ar/wp-content/uploads/2019/06/ed_sheeran_no_6_collaborations_project-portada.jpg');
+(19, 'No. 6 Collaborations Project', 'Mamandurrias', 'Ed Sheeran', 2019, 16, 'https://tangodiario.com.ar/wp-content/uploads/2019/06/ed_sheeran_no_6_collaborations_project-portada.jpg'),
+(20, 'Live', 'Rock', 'AC/DC', 1992, 23, 'https://img.discogs.com/ty7sDyfFIt0AitK5f7u7AxapBOU=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-398546-1429180801-4066.jpeg.jpg');
 
 --
 -- Índices para tablas volcadas
@@ -81,7 +81,7 @@ ALTER TABLE `discos`
 -- AUTO_INCREMENT de la tabla `discos`
 --
 ALTER TABLE `discos`
-  MODIFY `id_disco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_disco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
