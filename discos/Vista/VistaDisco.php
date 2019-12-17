@@ -25,6 +25,7 @@ spl_autoload_register(function ( $NombreClase ) {
             
         }
 
+        //Imprimir detalle del disco
         static function imprimirDisco($unDisco) {
 
             echo "<div class='media'>";
@@ -33,18 +34,52 @@ spl_autoload_register(function ( $NombreClase ) {
             echo "  <h2 class='mt-0'>".$unDisco->getTitulo()."</h2>";
             echo "  <h4>".$unDisco->getAutor()."</h4>";
             echo "  <p>CANCIONES (".$unDisco->getNcanciones().")</p>";
+            echo "  <table>";
+            foreach($unDisco->getCanciones() as $cancion) {
+                //Calcular minutos y segundos
+                $minutos = floor($cancion->getDuracion() / 60);
+                $segundos = $cancion->getDuracion() % 60;                
+                printf("<tr><td class='pr-3'><small>%s</small> </td><td><small>(%02d:%02d)</small></td></tr>",$cancion->getTitulo(),$minutos,$segundos);
+            }
+            echo "   </table>";
             echo "</div>";
             echo "</div>";
 
         }
 
+        //Métodos de la vista en BackEnd
         //Imprimir las canciones de un disco
         static function imprimirCancionesDiscoAdmin($disco) {
             echo "<h5>{$disco->getTitulo()}</h5>";
-            echo "<h5>{$disco->getAutor()}</h5>";
+            echo "<h5>{$disco->getAutor()}";            
+            echo "      <a href='#addSong' data-toggle='modal' class='float-right btn btn-warning btn-circle mb-2'>";
+            echo "       <i class='fas fa-plus'></i>";
+            echo "      </a></h5>";
+
+            echo "<div class='table-responsive'>";
+            echo "<table class='table table-bordered' id='dataTable' width=70%' cellspacing='0'>";
+            echo "  <thead>";
+            echo "  <tr>";
+            echo "  <th>Título</th><th>Duración</th><th>Acciones</th>";
+            echo "  </tr>";
+            echo "  </thead>";
+            echo "  <tbody>";
+
             foreach($disco->getCanciones() as $cancion) {
-                echo $cancion->getTitulo()." ".$cancion->getDuracion();
+                echo "  <tr>";
+                echo "  <td>{$cancion->getTitulo()}</td><td>{$cancion->getDuracion()}</td>";
+                echo "  <td>";
+                //Botón delete
+                echo "      <a href='controller.php?action=delete_c&id_c={$cancion->id_cancion}&id_d={$disco->id_disco}' class='btn btn-danger btn-circle'>";
+                echo "       <i class='fas fa-trash'></i>";
+                echo "      </a>";            
+    
+                echo "  </td>";
+                echo "  </tr>";
             }
+            echo "  </tbody>";
+            echo "</table>";
+            echo "</div>";
 
         }
 
@@ -65,12 +100,6 @@ spl_autoload_register(function ( $NombreClase ) {
             echo "      </a>";
             echo "  </td>";
             echo "  <td><img width='50' src='".$unDisco->getPortada()."'></td>";
-            //Reseñas
-            echo "  <td>";
-            echo "      <a href='#' class='btn btn-primary btn-icon-split'>";
-            echo "      <span class='text'>Ver</span>";
-            echo "      </a>";
-            echo "  </td>";
             //Acciones
             echo "  <td>";
             //Botón update

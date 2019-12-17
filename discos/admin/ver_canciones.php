@@ -213,6 +213,35 @@ spl_autoload_register(function ( $NombreClase ) {
     </div>
   </div>
 
+<!-- Nueva Canción HTML -->
+<div id="addSong" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form method='POST' action='controller.php'>
+					<div class="modal-header">						
+						<h4 class="modal-title">Añadir Canción</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Título</label>
+							<input type="text" name="titulo" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Duración</label>
+							<input type="text" name="duracion" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+            <input type="hidden" name="id_disco" value="<?php echo $_GET['id'];?>">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" name='insert_c' class="btn btn-success" value="Nuevo">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

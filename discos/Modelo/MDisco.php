@@ -133,6 +133,31 @@ spl_autoload_register(function ( $NombreClase ) {
            return $canciones;            
         }
 
+        //Método para eliminar una canción
+        function deleteCancion($unId) {
+            try {
+                $stmt = $this->conexion->prepare('DELETE FROM canciones WHERE id_cancion = :id');
+                $stmt->bindParam(':id', $unId); 
+                $stmt->execute();                 
+            } catch(PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+            }
+        }
+        
+        //Insertar una canción
+        function insertCancion($titulo,$duracion,$id_disco) {
+            try {
+                $stmt = $this->conexion->prepare('INSERT INTO canciones (titulo,duracion,id_disco) VALUES(:titulo,:duracion,:id_disco )');
+                $stmt->bindParam(':titulo', $titulo);
+                $stmt->bindParam(':duracion', $duracion);
+                $stmt->bindParam(':id_disco', $id_disco);
+                $stmt->execute();               
+              } catch(PDOException $e) {
+                echo 'Error: ' . $e->getMessage();
+              }
+        }
+
+
     }
 
 ?>
