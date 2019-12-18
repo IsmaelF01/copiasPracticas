@@ -1,6 +1,10 @@
 <?php
 
-    include_once("Incidencia.php");
+    spl_autoload_register( function( $NombreClase ) {
+        include_once($NombreClase . '.php');
+    } );
+
+    //Incluimos la librería de Mongo
     include_once("./vendor/autoload.php");
 
     class MIncidencia
@@ -24,12 +28,27 @@
             foreach($cursor as $incidencia) {
                 //Mongo nos devuelve un array asociativo con cada documento. 
                 //Generamos un objeto con esos valores para que funcione el resto de la app
-                $incidencia = new Incidencia($incidencia['Titulo'],$incidencia['Descripcion'],$incidencia['Fecha']);
-                $incidencias[] = $incidencia;
+                $unaIncidencia = new Incidencia($incidencia['Titulo'],$incidencia['Descripcion'],$incidencia['Fecha'],$incidencia['Usuarios']);
+                $unaIncidencia->id = $incidencia['_id'];                
+                $incidencias[] = $unaIncidencia;
             }
 
             return $incidencias;
 
+        }
+
+        //Borra una incidencia en Mongodb
+        function deleteIncidencia($unId) {            
+            $cursor = $this->conexion->incidencias->deleteOne(['_id' => new \MongoDB\BSON\ObjectId($unId)]);
+        }
+
+        //Inserta una incidencia en Mongodb
+        function insertIncidencia($unTitulo, $unaDescripcion, $unaFecha) {
+            $insertOneResult = $this->conexion->incidencias->insertOne([
+                'Titulo' => $unTitulo,
+                'Descripcion' => $unaDescripcion,
+                'Fecha' => $unaFecha,
+            ]);
         }
 
     }
