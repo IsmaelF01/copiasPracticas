@@ -8,7 +8,7 @@ class VistaPeliculas
             $pelis = json_decode($peliculas_json);
             $cont = 0;
             foreach($pelis->results as $pelicula) {
-                if (isset($pelicula->poster_path) && isset($pelicula->overview)) {
+                if (isset($pelicula->poster_path))  {
                     //Inicio carta
                     $cadena .= "<div class='card mt-3 mb-3 col-sm-4 elegant-color text-center' style='width: 15rem;'>";
                     //Imagen carta
