@@ -28,7 +28,7 @@
             foreach($cursor as $incidencia) {
                 //Mongo nos devuelve un array asociativo con cada documento. 
                 //Generamos un objeto con esos valores para que funcione el resto de la app
-                $unaIncidencia = new Incidencia($incidencia['Titulo'],$incidencia['Descripcion'],$incidencia['Fecha'],$incidencia['Usuarios']);
+                $unaIncidencia = new Incidencia($incidencia['Titulo'],$incidencia['Descripcion'],$incidencia['Fecha']);
                 $unaIncidencia->id = $incidencia['_id'];                
                 $incidencias[] = $unaIncidencia;
             }

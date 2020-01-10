@@ -29,9 +29,11 @@ spl_autoload_register(function ( $NombreClase ) {
                 echo "        <td>".$incidencia->getDescripcion()."</td>";
                 echo "        <td>".$incidencia->getFecha()."</td>";
                 echo "        <td>";
+                /*
                 foreach($incidencia->getUsuarios() as $usuario) {
                     echo $usuario['Nombre']." - ".$usuario['Email']."<br>";
                 }
+                */
                 echo "          <a href='controller.php?action=delete&id={$incidencia->id}' class='btn btn-danger btn-circle'>-</a>";
                 echo "        </td>";
                 echo "        </tr>";
