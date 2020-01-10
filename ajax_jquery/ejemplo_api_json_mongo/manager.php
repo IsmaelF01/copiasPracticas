@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	
 	spl_autoload_register(function ( $NombreClase ) {
 		if (file_exists("./Modelos/". $NombreClase . '.php'))
@@ -8,19 +9,55 @@
 	} );
 
 
+	//PAGINADOR
+	if (!isset($_SESSION['paginat'])) {
+		$_SESSION['paginat'] = 1;
+	}
+	if (!isset($_SESSION['paginac'])) {
+		$_SESSION['paginac'] = 1;
+	}	
+
 	if (isset($_GET['accion'])) {
 		//Mostrar las mejores películas según The Movie DB
 		if ($_GET['accion'] == 'top') {
-			topMovies();
+			$_SESSION['peliculas']="top";
+			$_SESSION['paginat']=1;
+			topMovies($_SESSION['paginat']);
 		}
+		//Mostrar películas en cartelera
 		if ($_GET['accion'] == 'cartelera') {
-			onAirMovies();
-		}		
+			$_SESSION['peliculas']="cartelera";
+			$_SESSION['paginac']=1;
+			onAirMovies($_SESSION['paginac']);
+		}	
+		//Has pulsado en siguiente en el paginador
+		if ($_GET['accion'] == 'siguiente') {
+			if ($_SESSION['peliculas'] == 'top') {
+				topMovies(++$_SESSION['paginat']);
+			}
+			if ($_SESSION['peliculas'] == 'cartelera') {
+				onAirMovies(++$_SESSION['paginac']);
+			}			
+		}	
+		//Has pulsado en anterior en el paginador
+		if ($_GET['accion'] == 'anterior') {
+			if ($_SESSION['peliculas'] == 'top') {
+				if ($_SESSION['paginat'] > 1)
+					--$_SESSION['paginat'];
+				topMovies($_SESSION['paginat']);
+				
+			}
+			if ($_SESSION['peliculas'] == 'cartelera') {
+				if ($_SESSION['paginac'] > 1)
+					--$_SESSION['paginac'];
+				onAirMovies($_SESSION['paginac']);
+			}			
+		}			
 	}
 
 	//Películas top
-	function topMovies() {
-		$uri = 'https://api.themoviedb.org/3/movie/top_rated?sort_by=popularity.desc&api_key=d0c9b6cd659d5b9a74f988e28be7a2f5&language=es-ES&page=1';
+	function topMovies($pagina) {
+		$uri = 'https://api.themoviedb.org/3/movie/top_rated?sort_by=popularity.desc&api_key=d0c9b6cd659d5b9a74f988e28be7a2f5&language=es-ES&page='.$pagina;
 		$reqPrefs['http']['method'] = 'GET';
 		$reqPrefs['http']['header'] = 'X-Auth-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGM5YjZjZDY1OWQ1YjlhNzRmOTg4ZTI4YmU3YTJmNSIsInN1YiI6IjVjNzQzNTM4OTI1MTQxMTllMWIxZDM0NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6o-cHWQTVoi2ozp0aXk43mvBLB1B3WjucEtKNx7q17o';
 		$stream_context = stream_context_create($reqPrefs);
@@ -30,8 +67,8 @@
 	}
 
 	//Películas top
-	function onAirMovies() {
-		$uri = 'https://api.themoviedb.org/3/movie/upcoming?api_key=d0c9b6cd659d5b9a74f988e28be7a2f5&language=es-ES&page=1';
+	function onAirMovies($pagina) {
+		$uri = 'https://api.themoviedb.org/3/movie/upcoming?api_key=d0c9b6cd659d5b9a74f988e28be7a2f5&language=es-ES&page='.$pagina;
 		$reqPrefs['http']['method'] = 'GET';
 		$reqPrefs['http']['header'] = 'X-Auth-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGM5YjZjZDY1OWQ1YjlhNzRmOTg4ZTI4YmU3YTJmNSIsInN1YiI6IjVjNzQzNTM4OTI1MTQxMTllMWIxZDM0NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6o-cHWQTVoi2ozp0aXk43mvBLB1B3WjucEtKNx7q17o';
 		$stream_context = stream_context_create($reqPrefs);

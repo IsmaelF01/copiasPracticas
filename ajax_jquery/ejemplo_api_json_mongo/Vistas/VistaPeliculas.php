@@ -6,7 +6,16 @@ class VistaPeliculas
         static function render($peliculas_json) {
             $cadena = "";
             $pelis = json_decode($peliculas_json);
-            $cont = 0;
+            //Paginador
+            $cadena .= "<div  class='row m-2'>";
+            $cadena .= "<nav class='navbar navbar-light bg-light'>";
+            $cadena .= "<button class='nav-link' id='anterior' onclick='anterior();'>Anterior</button>";
+            $cadena .= "<button class='nav-link' id='siguiente' onclick='siguiente();'>Siguiente</button>";
+            $cadena .= "</nav>";
+            $cadena .= "</div>";
+
+            $cadena .= "<div  class='row m-2'>";
+            //Películas
             foreach($pelis->results as $pelicula) {
                 if (isset($pelicula->poster_path))  {
                     //Inicio carta
@@ -28,6 +37,7 @@ class VistaPeliculas
                     
                 }
             }
+            $cadena .= "</div>";
 
             return $cadena;
 
