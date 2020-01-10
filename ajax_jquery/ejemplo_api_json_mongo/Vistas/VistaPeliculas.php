@@ -3,15 +3,20 @@
 class VistaPeliculas
 {
 
-        static function render($peliculas_json) {
+        static function render($peliculas_json,$pagina) {
             $cadena = "";
             $pelis = json_decode($peliculas_json);
+            
             //Paginador
-            $cadena .= "<div  class='row m-2'>";
-            $cadena .= "<nav class='navbar navbar-light bg-light'>";
-            $cadena .= "<button class='nav-link' id='anterior' onclick='anterior();'>Anterior</button>";
-            $cadena .= "<button class='nav-link' id='siguiente' onclick='siguiente();'>Siguiente</button>";
-            $cadena .= "</nav>";
+            if ($pagina > 1)
+                $anterior = $pagina - 1;
+            else
+                $anterior = $pagina;
+            $siguiente = $pagina + 1;
+
+            $cadena .= "<div class='row m-2 ml-3'>";
+            $cadena .= "<button class='btn-xs' id='anterior' onclick='paginador(".$anterior.");'>&lt;</button><span class='mr-1 ml-1 mt-2 small'>".$pagina."</span>";
+            $cadena .= "<button class='btn-xs' id='siguiente' onclick='paginador(".$siguiente.");'>&gt;</button>";
             $cadena .= "</div>";
 
             $cadena .= "<div  class='row m-2'>";
@@ -19,7 +24,7 @@ class VistaPeliculas
             foreach($pelis->results as $pelicula) {
                 if (isset($pelicula->poster_path))  {
                     //Inicio carta
-                    $cadena .= "<div class='card mt-3 mb-3 col-sm-4 elegant-color text-center' style='width: 15rem;'>";
+                    $cadena .= "<div class='card mt-3 mb-3 col-md-3 elegant-color text-center' style='width: 17rem;'>";
                     //Imagen carta
                     $cadena .= "<div class='view overlay'>";
                     $cadena .= "<img class='card-img-top' src='https://image.tmdb.org/t/p/w600_and_h900_bestv2" . $pelicula->poster_path . "' alt='Card image cap'>";

@@ -72,28 +72,18 @@
        	});
 	});	
 
-	//Pinchamos paginador siguiente
-	function siguiente() {
+	//Pinchamos paginador siguiente o anterior
+	function paginador(pagina) {
 		$.ajax({
 			type: 'GET',
 			url: 'manager.php',
-			data: "accion=siguiente",
+			data: { 'accion' : 'paginador', 'pag' : pagina },
 			success: function(response) {
 				$("#principal").html(response);
 			}
        	});
 	}
-	//Pinchamos paginador anterior
-	function anterior() {
-		$.ajax({
-			type: 'GET',
-			url: 'manager.php',
-			data: "accion=anterior",
-			success: function(response) {
-				$("#principal").html(response);
-			}
-       	});
-	}	
+	
 
 </script>
 

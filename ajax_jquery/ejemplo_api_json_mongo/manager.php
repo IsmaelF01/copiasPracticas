@@ -9,50 +9,25 @@
 	} );
 
 
-	//PAGINADOR
-	if (!isset($_SESSION['paginat'])) {
-		$_SESSION['paginat'] = 1;
-	}
-	if (!isset($_SESSION['paginac'])) {
-		$_SESSION['paginac'] = 1;
-	}	
-
 	if (isset($_GET['accion'])) {
 		//Mostrar las mejores películas según The Movie DB
 		if ($_GET['accion'] == 'top') {
 			$_SESSION['peliculas']="top";
-			$_SESSION['paginat']=1;
-			topMovies($_SESSION['paginat']);
+			topMovies(1); //Cada vez que pincho en top empieza en la página 1
 		}
 		//Mostrar películas en cartelera
 		if ($_GET['accion'] == 'cartelera') {
 			$_SESSION['peliculas']="cartelera";
-			$_SESSION['paginac']=1;
-			onAirMovies($_SESSION['paginac']);
+			onAirMovies(1); //Cada vez que pincho en cartelera empieza en la página 1
 		}	
-		//Has pulsado en siguiente en el paginador
-		if ($_GET['accion'] == 'siguiente') {
-			if ($_SESSION['peliculas'] == 'top') {
-				topMovies(++$_SESSION['paginat']);
-			}
-			if ($_SESSION['peliculas'] == 'cartelera') {
-				onAirMovies(++$_SESSION['paginac']);
-			}			
+		//PAGINADOR 
+		if ($_GET['accion'] == 'paginador') {	
+			if ($_SESSION['peliculas'] == "top")
+				topMovies($_GET['pag']);
+			if ($_SESSION['peliculas'] == "cartelera")
+				onAirMovies($_GET['pag']);
 		}	
-		//Has pulsado en anterior en el paginador
-		if ($_GET['accion'] == 'anterior') {
-			if ($_SESSION['peliculas'] == 'top') {
-				if ($_SESSION['paginat'] > 1)
-					--$_SESSION['paginat'];
-				topMovies($_SESSION['paginat']);
 				
-			}
-			if ($_SESSION['peliculas'] == 'cartelera') {
-				if ($_SESSION['paginac'] > 1)
-					--$_SESSION['paginac'];
-				onAirMovies($_SESSION['paginac']);
-			}			
-		}			
 	}
 
 	//Películas top
@@ -63,7 +38,7 @@
 		$stream_context = stream_context_create($reqPrefs);
 		$json = file_get_contents($uri, false, $stream_context);
 		//Llamo a la vista para que con el Json de la API genere Html. Lo paso a Ajax
-		echo VistaPeliculas::render($json);
+		echo VistaPeliculas::render($json,$pagina);
 	}
 
 	//Películas top
@@ -74,7 +49,7 @@
 		$stream_context = stream_context_create($reqPrefs);
 		$json = file_get_contents($uri, false, $stream_context);
 		//Llamo a la vista para que con el Json de la API genere Html. Lo paso a Ajax
-		echo VistaPeliculas::render($json);
+		echo VistaPeliculas::render($json,$pagina);
 	}
 
 ?>
