@@ -10,6 +10,18 @@
 
 
 	if (isset($_GET['accion'])) {
+		//Guardar película en favoritos
+		if ($_GET['accion'] == 'guardar') {
+			guardarFavoritos($_GET['id_pelicula']);
+		}
+		//Eliminar una película de favoritos
+		if ($_GET['accion'] == 'eliminar') {
+			eliminarFavoritos($_GET['id_pelicula']);
+		}
+		//Mostrar las películas seleccionadas por mí como favoritos
+		if ($_GET['accion'] == 'favoritos') {
+			mostrarFavoritos();
+		}
 		//Mostrar las mejores películas según The Movie DB
 		if ($_GET['accion'] == 'top') {
 			$_SESSION['peliculas']="top";
@@ -22,9 +34,17 @@
 		}	
 		//Buscador
 		if ($_GET['accion'] == 'buscar') {
-			$_SESSION['peliculas']="buscar";
-			$_SESSION['textoabuscar']=$_GET['texto'];
-			searchMovies(1,$_GET['texto']);
+			if (!isset($_GET['texto'])) {
+				echo "No has introducido nada a buscar";
+			} else {
+				if (strlen($_GET['texto'])>0) {
+					$_SESSION['peliculas']="buscar";
+					$_SESSION['textoabuscar']=$_GET['texto'];
+					searchMovies(1,$_GET['texto']);
+				} else {
+					echo "No has introducido nada a buscar";
+				}
+			}
 		}
 
 
@@ -70,6 +90,36 @@
 		$json = file_get_contents($uri, false, $stream_context);
 		//Llamo a la vista para que con el Json de la API genere Html. Lo paso a Ajax
 		echo VistaPeliculas::render($json,$pagina);
+	}
+
+	//Guardar película en favoritos
+	function guardarFavoritos($id_pelicula) {
+		//Llamada a la API para traernos el JSON completo de la película
+		$uri = 'https://api.themoviedb.org/3/movie/'.$id_pelicula.'?api_key=d0c9b6cd659d5b9a74f988e28be7a2f5&language=es-ES';
+		$reqPrefs['http']['method'] = 'GET';
+		$reqPrefs['http']['header'] = 'X-Auth-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGM5YjZjZDY1OWQ1YjlhNzRmOTg4ZTI4YmU3YTJmNSIsInN1YiI6IjVjNzQzNTM4OTI1MTQxMTllMWIxZDM0NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6o-cHWQTVoi2ozp0aXk43mvBLB1B3WjucEtKNx7q17o';
+		$stream_context = stream_context_create($reqPrefs);
+		$json = file_get_contents($uri, false, $stream_context);		
+
+		$mPelicula = new MPeliculas();
+		$mPelicula->insert($json);
+
+	}
+
+	//Mostrar películas favoritas desde MongoDB
+	function mostrarFavoritos() {
+		$mPelicula = new MPeliculas();
+		$peliculas_json = $mPelicula->getFavoritas();
+		echo VistaPeliculas::renderFavoritas($peliculas_json,1);
+
+	}
+
+	//Eliminamos de favoritos una película
+	function eliminarFavoritos($id_pelicula) {
+		$mPelicula = new MPeliculas();
+		$mPelicula->eliminar($id_pelicula);
+		$peliculas_json = $mPelicula->getFavoritas();
+		echo VistaPeliculas::renderFavoritas($peliculas_json,1);		
 	}
 
 
