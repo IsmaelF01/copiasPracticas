@@ -20,12 +20,22 @@
 			$_SESSION['peliculas']="cartelera";
 			onAirMovies(1); //Cada vez que pincho en cartelera empieza en la página 1
 		}	
+		//Buscador
+		if ($_GET['accion'] == 'buscar') {
+			$_SESSION['peliculas']="buscar";
+			$_SESSION['textoabuscar']=$_GET['texto'];
+			searchMovies(1,$_GET['texto']);
+		}
+
+
 		//PAGINADOR 
 		if ($_GET['accion'] == 'paginador') {	
 			if ($_SESSION['peliculas'] == "top")
 				topMovies($_GET['pag']);
 			if ($_SESSION['peliculas'] == "cartelera")
 				onAirMovies($_GET['pag']);
+			if ($_SESSION['peliculas'] == "buscar")
+				searchMovies($_GET['pag'],$_SESSION['textoabuscar']);
 		}	
 				
 	}
@@ -51,5 +61,16 @@
 		//Llamo a la vista para que con el Json de la API genere Html. Lo paso a Ajax
 		echo VistaPeliculas::render($json,$pagina);
 	}
+
+	function searchMovies($pagina,$texto) {
+		$uri = 'https://api.themoviedb.org/3/search/movie?api_key=d0c9b6cd659d5b9a74f988e28be7a2f5&language=es-ES&query='.$texto.'&page='.$pagina;
+		$reqPrefs['http']['method'] = 'GET';
+		$reqPrefs['http']['header'] = 'X-Auth-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGM5YjZjZDY1OWQ1YjlhNzRmOTg4ZTI4YmU3YTJmNSIsInN1YiI6IjVjNzQzNTM4OTI1MTQxMTllMWIxZDM0NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6o-cHWQTVoi2ozp0aXk43mvBLB1B3WjucEtKNx7q17o';
+		$stream_context = stream_context_create($reqPrefs);
+		$json = file_get_contents($uri, false, $stream_context);
+		//Llamo a la vista para que con el Json de la API genere Html. Lo paso a Ajax
+		echo VistaPeliculas::render($json,$pagina);
+	}
+
 
 ?>
