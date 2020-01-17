@@ -9,6 +9,8 @@
 
     class MPeliculas
     {
+        const PELISPORPAGINA = 4;
+
         protected $conexion=null;
 
         //Abrir conexion a BD MongoDB, cambiar nombre a la vuestra
@@ -24,9 +26,21 @@
             $insertOneResult = $this->conexion->favoritas->insertOne(json_decode($pelicula_json)); 
         }
 
-        function getFavoritas() {
-            $cursor = $this->conexion->favoritas->find();
+        function getFavoritas($pag) {
+            $salto = self::PELISPORPAGINA * ($pag - 1);
+            $cursor = $this->conexion->favoritas->find(
+                [],
+                [
+                    'limit' => self::PELISPORPAGINA,
+                    'skip' => $salto,
+                    'sort' => ['vote_average' => -1], //Ordenar desc por media de los votos
+                ]
+            );
             return $cursor;
+        }
+
+        function count() {
+            return $this->conexion->favoritas->count();
         }
 
         function eliminar($id_pelicula) {

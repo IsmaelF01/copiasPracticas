@@ -84,7 +84,7 @@
 		$.ajax({
 			type: 'GET',
 			url: 'manager.php',
-			data: "accion=favoritos",
+			data: "accion=favoritas",
 			beforeSend: function() {
 				$("#principal").html("Cargando...");
 			},
@@ -125,8 +125,8 @@
 		});
 	});
 
-	//Pinchamos en añadir una pelicula a mis favoritos
-	function favoritos(id_pelicula) {
+	//Pinchamos en añadir una pelicula a mis favoritas
+	function favoritas(id_pelicula) {
 		$.ajax({
 			type: 'GET',
 			url: 'manager.php',
@@ -138,8 +138,8 @@
 		});
 	}
 
-	//Eliminar de favoritos una pelicula
-	function eliminarDeFavoritos(id_pelicula) {
+	//Eliminar de favoritas una pelicula
+	function eliminarDeFavoritas(id_pelicula) {
 		$.ajax({
 			type: 'GET',
 			url: 'manager.php',
