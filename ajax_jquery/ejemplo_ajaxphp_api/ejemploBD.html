@@ -1,0 +1,147 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ajax con PHP (BBDD) y JSON</title>
+     <link rel="stylesheet" href="css/estilos.css" type="text/css" media="all" />
+
+<script src="./js/jquery-3.4.1.min.js"></script>
+
+
+
+
+    <script>
+        window.addEventListener("load",inicio);
+
+        function inicio() {
+            //Cargamos las cervezas de la API por Ajax y nuestras cervezas favoritas
+            cargarBirras();
+            mostrarFavoritas();
+        }
+
+    function cargarBirras() {
+            var txt = "";
+            var foto;
+
+            $.ajax({
+                type: 'GET',
+                url: 'ejemploBD.php',
+                data: "accion=api",
+                beforeSend: function() {
+                    $("#texto").html("Cargando...");
+                },
+                success: function(birras) {
+                    //Pintamos aquí el JSON devuelto por la API
+                    txt += "<h3>Cervezas del mundo</h3>";
+                    txt += "<ul>";
+                    //Recorremos el objeto, teniendo en cuenta que empieza en data y dentro array
+                    for(i in birras.data) {
+                        //Algunas cervezas no tienen etiquetas (fotos), sólo voy a mostrar esas
+                        foto = "";                        
+                        if (birras.data[i].labels) {
+                            foto = birras.data[i].labels.medium;
+                        
+                            //Ojo! A cada botón junto a la cerveza le asociamos un evento onclick para añadir la cerveza en la BD. Hay que pasarle la información necesaria para que luego desde PHP podamos insertar (nameDisplay, abv, Foto)
+                            txt += "<li>"+birras.data[i].nameDisplay+"<span onclick=add('"+
+                                    escape(birras.data[i].nameDisplay)+"','"+
+                                    escape(birras.data[i].abv)+"','"+
+                                    encodeURI(foto)+"'"+
+                                    ")>+</span></li>";
+                        }
+                    }
+                    txt += "</ul><br>";
+                    $("#texto").html(txt);
+                }
+            });
+        }
+
+        //Por Ajax solicitamos que nos devuelva todas las cervezas de mi base de datos y las pintamos
+        function mostrarFavoritas(){
+            var txt="";
+            $.ajax({
+                type: 'GET',
+                url: 'ejemploBD.php',
+                data: "accion=favoritos",
+                beforeSend: function() {
+                    $("#favoritos").html("Cargando...");
+                },
+                success: function(birrasFav) {
+                    //Pintar resultados
+                    txt += "<h3>Mis cervezas favoritas</h3>";
+                    txt += "<ul>";
+                    //Recorremos el objeto, teniendo en cuenta que empieza en data y dentro array
+                    for(i in birrasFav) {
+                        //Obtenemos el id para pasárselo a eliminar
+                        id = birrasFav[i]["_id"]["$oid"];
+                        txt += "<li>"+birrasFav[i].nombre+" con "+birrasFav[i].grados+" grados&nbsp;<span onclick=del('"+id+"')>-</span></li>";
+                    }
+                    txt += "</ul><br>";
+
+                    $("#favoritos").html(txt);
+
+                }
+            });              
+        }
+
+        //Elimina una cerveza de mi BD de cervezas favoritas
+        function del(unId) {
+            $.ajax({
+                type: 'GET',
+                url: 'ejemploBD.php',
+                data: "accion=eliminar&id="+unId,
+                //data: "accion=eliminar",
+                beforeSend: function() {
+                    $("#favoritos").html("Cargando...");
+                },
+                success: function(response) {
+                    mostrarFavoritas();
+                }
+            });
+        }
+
+
+        //Añade una cerveza a nuestra base de datos
+        function add(nombre, grados, foto) {
+            //Objeto que pasaremos como parámetro para que php lo inserte en la BD
+            var objeto = {
+                "nombre" : nombre,
+                "grados" : grados,
+                "foto" : foto
+            }
+            var parametros = JSON.stringify(objeto);
+
+            $.ajax({
+                type: 'POST',
+                url: 'ejemploBD.php',
+                data: "objeto=" + parametros,
+                //data: "accion=eliminar",
+                beforeSend: function() {
+                    $("#favoritos").html("Cargando...");
+                },
+                success: function(response) {
+                    console.log("Llega la respuesta al añadir");
+                    mostrarFavoritas();
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Birras Web</h1>
+    <div class="flexbox-container">
+    <!-- Aquí van las cervezas de la API -->
+      <div id="texto">
+        <h3>Cervezas del mundo</h3><img id="logo" src="imgs/load.gif">
+      </div>
+    <!-- Aquí van mis cervezas favoritas -->
+      <div id="favoritos">
+        <h3>Mis cervezas favoritas</h3>
+      </div>
+    </div>
+
+    
+</body>
+
+</html>
