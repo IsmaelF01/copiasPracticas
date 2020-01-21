@@ -29,7 +29,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo constant('URL');?>IndexController/render">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo constant('URL');?>">
         <div class="sidebar-brand-text mx-3">Admin Instituto </div>
       </a>
 
@@ -38,7 +38,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="<?php echo constant('URL');?>IndexController/render">
+        <a class="nav-link" href="<?php echo constant('URL');?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -69,14 +69,14 @@
         </div>
       </li>
 
-      <!-- Nav Item - Charts -->
+      <!-- Nav Item - Materias -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?php echo constant('URL');?>MateriaController/consulta">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Materias</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
+      <!-- Nav Item - Notas -->
       <li class="nav-item">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>

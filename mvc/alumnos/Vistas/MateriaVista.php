@@ -1,6 +1,6 @@
 <?php
 
-	class AlumnoVista extends Vista
+	class MateriaVista extends Vista
 	{
 
 	    function __construct(){
@@ -17,7 +17,7 @@
             <div class="container-fluid">
     
               <!-- Page Heading -->
-              <h1 class="h3 ml-1 mb-2 text-gray-800">Alumnos</h1>
+              <h1 class="h3 ml-1 mb-2 text-gray-800">Materias</h1>
               
               <!-- DataTales  -->
               <div class="card shadow mb-4">
@@ -27,39 +27,30 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
-                          <th>DNI</th>
                           <th>Nombre</th>
-                          <th>Apellidos</th>
-                          <th>Edad</th>
-                          <th>Móvil</th>
-                          <th>Dirección</th>
+                          <th>Horas Semanales</th>
+                          <th>Curso</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
-                          <th>DNI</th>
                           <th>Nombre</th>
-                          <th>Apellidos</th>
-                          <th>Edad</th>
-                          <th>Móvil</th>
-                          <th>Dirección</th>
+                          <th>Horas Semanales</th>
+                          <th>Curso</th>
                           <th>Acciones</th>
                         </tr>
                       </tfoot>
                       <tbody>
 <?php
-                foreach($datos as $alumno) {
+                foreach($datos as $materia) {
                     echo "<tr>";
-                    echo "<td>{$alumno->getDNI()}</td>";
-                    echo "<td>{$alumno->getNombre()}</td>";
-                    echo "<td>{$alumno->getApellidos()}</td>";
-                    echo "<td>{$alumno->getEdad()}</td>";
-                    echo "<td>{$alumno->getMovil()}</td>";
-                    echo "<td>{$alumno->getDireccion()}</td>"; 
+                    echo "<td>{$materia->getNombre()}</td>";
+                    echo "<td>{$materia->getHorasSemanales()}</td>";
+                    echo "<td>{$materia->getCurso()}</td>";   
                     echo "<td>";
-                    echo "<a href='".constant('URL')."AlumnoController/delete/".$alumno->getDNI()."' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>";
-                    echo "</td>";                                        
+                    echo "<a href='".constant('URL')."MateriaController/delete/".$materia->getId()."' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>";
+                    echo "</td>";                
                     echo "</tr>";
                 }
 ?>

@@ -8,15 +8,11 @@ class Controller{
     }
 
     //Cargamos un determinado modelo para ejecutar métodos sobre él
-    function loadModel($model){
-        $url = 'Modelos/'.$model.'Model.php';
+    function loadModel($model){                
+        $modelName = $model.'Model';
+        $this->modelo = new $modelName();
+        return $this->modelo;
 
-        if(file_exists($url)){
-            //require $url;            
-            $modelName = $model.'Model';
-            $this->modelo = new $modelName();
-            return $this->modelo;
-        }
     }
 
     //Ejecutar una determinada vista pasada como parámetro del tipo ClaseVista/MétodoVista

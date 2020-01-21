@@ -12,17 +12,14 @@ class Router{
             $archivoController = 'Controladores/IndexController.php';
             //require $archivoController;
             $controller = new IndexController();
-            $controller->render();
+            $controller->render(); //Visualizar la página principal
             return false;
         }else{
             $archivoController = 'Controladores/' . $url[0] . '.php';
         }
  
         if(file_exists($archivoController)){
-            //require $archivoController;
-
-            $controller = new $url[0];
-            $controller->loadModel($url[0]);
+             $controller = new $url[0];
 
             // Se obtienen el número de param
             $nparam = sizeof($url);
