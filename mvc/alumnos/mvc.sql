@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-01-2020 a las 11:36:47
+-- Tiempo de generación: 24-01-2020 a las 18:18:51
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mvc`
 --
-CREATE DATABASE IF NOT EXISTS `mvc` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `mvc`;
 
 -- --------------------------------------------------------
 
@@ -44,6 +42,7 @@ CREATE TABLE `alumnos` (
 --
 
 INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `edad`, `movil`, `direccion`) VALUES
+('41122214l', 'Rasma', 'Torazoine', 25, 655255553, 'Su casa'),
 ('45121225L', 'Jacinto', 'Benavente', 154, 656210994, 'Mi casa en la leche, n1 '),
 ('45126598A', 'Joche', 'Jiménez Tigre', 22, 698587774, 'Edificio Gamers, 2, Vera Playa'),
 ('453692581', 'Lucía', 'Pérez Linares', 23, 696969854, 'Avenida del amor, 5'),
@@ -67,7 +66,32 @@ CREATE TABLE `materias` (
 --
 
 INSERT INTO `materias` (`id_materia`, `nombre`, `curso`, `horas_semanales`) VALUES
-(1, 'Despliegue', 2, 3);
+(1, 'Despliegue', 2, 3),
+(5, 'Empresas', 2, 4),
+(6, 'Cliente', 2, 6),
+(7, 'Servidor', 2, 8),
+(8, 'HLC', 2, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `notas`
+--
+
+CREATE TABLE `notas` (
+  `dni_alumno` varchar(9) NOT NULL,
+  `id_materia` int(11) NOT NULL,
+  `nota` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `notas`
+--
+
+INSERT INTO `notas` (`dni_alumno`, `id_materia`, `nota`) VALUES
+('41122214l', 6, 5),
+('45126598A', 5, 5),
+('45126598A', 6, 5);
 
 --
 -- Índices para tablas volcadas
@@ -86,6 +110,13 @@ ALTER TABLE `materias`
   ADD PRIMARY KEY (`id_materia`);
 
 --
+-- Indices de la tabla `notas`
+--
+ALTER TABLE `notas`
+  ADD PRIMARY KEY (`dni_alumno`,`id_materia`) USING BTREE,
+  ADD KEY `materia_fk_idx` (`id_materia`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -93,7 +124,18 @@ ALTER TABLE `materias`
 -- AUTO_INCREMENT de la tabla `materias`
 --
 ALTER TABLE `materias`
-  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `notas`
+--
+ALTER TABLE `notas`
+  ADD CONSTRAINT `alumno_fk` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `materia_fk` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
