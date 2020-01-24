@@ -52,6 +52,7 @@
   <!-- SCRIPTS DE CONTROL DE BOTONES -->
   <script>
     //Pinchamos el botón Consultar Alumno
+    /*
     $("#consultarAlumno").click(function() {
       $.ajax({
         type: 'GET',
@@ -67,7 +68,7 @@
 
       });
 	  });
-
+    */
   </script>
 
 </body>

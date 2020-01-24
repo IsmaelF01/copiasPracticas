@@ -33,6 +33,27 @@ class AlumnoModel {
           } catch(PDOException $e) {
             echo 'Error: ' . $e->getMessage();
           }            
+    }
+
+    public function nuevoAlumno($alumno) {
+
+        //Insertar película
+        try {
+            // Prepare
+            $stmt = $this->db->connect()->prepare("INSERT INTO alumnos (dni, nombre, apellidos, edad, movil, direccion) VALUES (:dni, :nombre, :apellidos, :edad, :movil, :direccion)");
+            // Bind
+            $stmt->bindValue(':dni', $alumno->getDNI());
+            $stmt->bindValue(':nombre', $alumno->getNombre());
+            $stmt->bindValue(':apellidos', $alumno->getApellidos());
+            $stmt->bindValue(':edad', $alumno->getEdad());
+            $stmt->bindValue(':movil', $alumno->getMovil());
+            $stmt->bindValue(':direccion', $alumno->getDireccion());
+
+            // Excecute
+            $stmt->execute();	
+        } catch (PDOException $e){
+            echo $e->getMessage();
+        }
 
     }
 

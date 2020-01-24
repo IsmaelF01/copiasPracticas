@@ -78,6 +78,54 @@
     	}
 
 
+      //Método que carga el formulario de insertar alumno
+      function formInsert() {
+
+        include("html/cabecera.php");
+        ?>            
+                  
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+            
+                      <!-- Page Heading -->
+                      <h1 class="h3 ml-1 mb-2 text-gray-800">Alumnos - Nuevo</h1>
+                      
+                      <form action="<?php echo constant('URL'); ?>AlumnoController/nuevo" method="POST">
+                        <div class="form-group">
+                          <label for="dni">DNI</label>
+                          <input type="text" class="form-control" name="dni" id="dni">
+                        </div>
+                        <div class="form-group">
+                          <label for="nombre">Nombre</label>
+                          <input type="text" class="form-control" name="nombre" id="nombre">
+                        </div>
+                        <div class="form-group">
+                          <label for="apellidos">Apellidos</label>
+                          <input type="text" class="form-control" name="apellidos" id="apellidos">
+                        </div>
+                        <div class="form-group">
+                          <label for="edad">Edad</label>
+                          <input type="number" class="form-control" name="edad" id="edad">
+                        </div>
+                        <div class="form-group">
+                          <label for="movil">Móvil</label>
+                          <input type="text" class="form-control" name="movil" id="movil">
+                        </div>                        
+                        <div class="form-group">
+                          <label for="direccion">Dirección</label>
+                          <input type="text" class="form-control" name="direccion" id="direccion">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                      </form>                      
+                
+                    </div>
+                    <!-- /.container-fluid -->   
+        <?php            
+                    //Quitarlo con Ajax
+                    include("html/pie.php");
+
+      }
+
 
 	}
 ?>

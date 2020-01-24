@@ -64,7 +64,7 @@
               Esto para probar AJAX 
               <span id='consultarAlumno' class="collapse-item" href="#">Consultar</span>
             -->
-            <a id='insertarAlumno' class="collapse-item" href="">Insertar</a>
+            <a id='insertarAlumno' class="collapse-item" href="<?php echo constant('URL');?>AlumnoController/finsertar">Nuevo</a>
           </div>
         </div>
       </li>
@@ -78,7 +78,7 @@
 
       <!-- Nav Item - Notas -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="<?php echo constant('URL');?>NotaController/consulta">
           <i class="fas fa-fw fa-table"></i>
           <span>Notas</span></a>
       </li>

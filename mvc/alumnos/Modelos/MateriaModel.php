@@ -34,6 +34,23 @@ class MateriaModel {
           }            
 
     }
+
+    public function insert($materia) {
+        //Insertar materia
+        try {
+            $stmt = $this->db->connect()->prepare("INSERT INTO materias (nombre, curso, horas_semanales) VALUES ( :nombre, :curso, :horas_semanales )");
+
+            $stmt->bindValue(':nombre', $materia->getNombre());
+            $stmt->bindValue(':curso', $materia->getCurso());
+            $stmt->bindValue(':horas_semanales', $materia->getHorasSemanales());
+
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+
+
+    }
 }
 
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2020 a las 18:44:18
+-- Tiempo de generación: 22-01-2020 a las 11:36:47
 -- Versión del servidor: 10.4.8-MariaDB
 -- Versión de PHP: 7.3.11
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mvc`
 --
+CREATE DATABASE IF NOT EXISTS `mvc` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `mvc`;
 
 -- --------------------------------------------------------
 
@@ -42,7 +44,9 @@ CREATE TABLE `alumnos` (
 --
 
 INSERT INTO `alumnos` (`dni`, `nombre`, `apellidos`, `edad`, `movil`, `direccion`) VALUES
+('45121225L', 'Jacinto', 'Benavente', 154, 656210994, 'Mi casa en la leche, n1 '),
 ('45126598A', 'Joche', 'Jiménez Tigre', 22, 698587774, 'Edificio Gamers, 2, Vera Playa'),
+('453692581', 'Lucía', 'Pérez Linares', 23, 696969854, 'Avenida del amor, 5'),
 ('474525655', 'Antonio', 'Cuenca', 28, 659555887, 'Chalet en el campo, 2, Antas');
 
 -- --------------------------------------------------------
