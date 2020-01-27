@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Incidencias</h1>
+<button id="verInc">Ver Incidencias</button>
+<div id="googleMap" style="width:80%;height:400px;"></div>
+
+<script src="./js/jquery-3.4.1.min.js"></script>
+
+<script>
+
+function addMarker(location, map, label) {
+  var marker = new google.maps.Marker({
+    position: location,
+    label: label,
+    map: map
+  });
+}
+
+//Llamada a PHP para traer unas coordenadas que imprimimos en un mapa
+function myMap() {
+
+  var longitud="";
+  var latitud="";
+  var label="";
+
+  $.ajax({
+    type: 'GET',
+    url: 'incidencias.php',			
+    success: function(response) {
+      //Cargamos el mapa con centro Vera
+      var mapCentro= {
+        center:new google.maps.LatLng(37.2053581,-1.8435778),
+        zoom:10,
+      };
+      var map = new google.maps.Map(document.getElementById("googleMap"),mapCentro);
+
+      //Recorrer array response con los marcadores del mapa
+      for(var i=0; i<response.length; i++) {
+        longitud = response[i].longitud;
+        latitud = response[i].latitud;
+        label = response[i].label;
+        //añadimos el marcador al mapa
+        var myLatlng = { lat: latitud, lng: longitud };
+        addMarker(myLatlng,map,label);
+      }
+          
+    }
+
+  });
+
+}
+
+  //Llamada a la API Google Maps para que traiga el mapa correspondiente
+  $("#verInc").click(function(e) {
+    $.ajax({
+			type: 'GET',
+      dataType: 'jsonp',
+			url: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBCiwGEsr0vpmnGbkj5QCNzWbrLS-CCD8g',
+			beforeSend: function() {
+				$("#googleMap").html("Cargando...");
+			},			
+			success: function(response) {
+				myMap();
+			}
+
+		});
+  });
+
+
+</script>
+
+</body>
+</html>
