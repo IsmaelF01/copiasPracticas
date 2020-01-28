@@ -17,22 +17,14 @@ class Database{
     }
 
     function connect(){
-    
-        try{
-            
-            $connection = "mysql:host=" . $this->host . ";dbname=" . $this->db . ";charset=" . $this->charset;
-            $options = [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",                
-            ];
-            $pdo = new PDO($connection, $this->user, $this->password, $options);
-    
-            return $pdo;
+        try {
+            $this->conexion = (new MongoDB\Client)->{$this->db};
+        } catch (Exception $e){
+            echo $e->getMessage();
+        }    
 
-        }catch(PDOException $e){
-            print_r('Error connection: ' . $e->getMessage());
-        }   
+        return $this->conexion;
+    
     }
 }
 
