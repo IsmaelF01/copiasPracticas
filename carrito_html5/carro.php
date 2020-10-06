@@ -20,7 +20,7 @@
 
 <body onload="pintar()">
 
-<a class="navbar-brand" href="index.php"><h2 class="text-primary">TIENDA LIBROS (HTML5 Storage)</h2></a>	
+<a class="navbar-brand" href="index.php"><h2 class="text-primary">TIENDA DE LIBROS (HTML5 Storage)</h2></a>	
 
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
